@@ -1,0 +1,133 @@
+/* navbar */
+.nav-green {
+  background-color: #3366ff;
+  font-family: Adamina;
+}
+
+.nav-item {
+  font-size: large;
+}
+
+.nav-item:hover {
+  text-shadow: 1px 1px 2px #3366ff, 1px 1px 4px white;
+}
+
+.brand-text {
+  font-family: Adamina;
+  font-size: xx-large;
+  text-shadow: 1px 1px 2px #3366ff, 1px 1px 8px white;
+}
+
+/* basic layout */
+main {
+  padding: 10px;
+  overflow-x: hidden;
+}
+
+/* breadcrumb */
+.breadcrumb {
+  --bs-breadcrumb-divider: ">";
+}
+
+.breadcrumb-item {
+  font-family: Roboto;
+}
+
+.breadcrumb-item > a {
+  text-decoration: none;
+}
+
+/* list items for classrooms within a building */
+.cr-list-item {
+  position: relative;
+  margin: 10px;
+  border-radius: 16px;
+  border: 2px solid #000000;
+  font-family: Abel;
+  text-align: center;
+  line-height: 1;
+  padding: 10px;
+}
+
+.cr-list-item a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.cr-list-item:hover {
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.open-list-item {
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.closed-list-item {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.bcr-name {
+  font-family: Roboto;
+  text-align: center;
+}
+
+.cr-name {
+  font-size: 2em;
+}
+
+.cr-current-status {
+  font-family: Roboto;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: auto;
+}
+
+.open {
+  color: green;
+  font-size: 1.5em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: auto;
+}
+
+.in-use {
+  color: red;
+  font-size: 1.5em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: auto;
+}
+
+.until {
+  font-size: 1.5em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: auto;
+}
+
+/* data last updated */
+.as-of {
+  text-align: center;
+  font-family: Roboto;
+}
+
+.refresh {
+  text-decoration: none;
+}
+
+.refresh:hover {
+  font-style: italic;
+}
