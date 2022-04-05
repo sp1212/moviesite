@@ -14,7 +14,7 @@ class SiteController {
         {
             session_start();
         }
-        
+
         if (!isset($_SESSION["username"]) && $this->command == "createaccount")
         {
             $this->command == "createaccount"; // repetitive but just continue
@@ -41,6 +41,9 @@ class SiteController {
                 break;
             case "createaccount":
                 $this->createaccount();
+                break;
+            case "search":
+                $this->search();
                 break;
             case "logout":
                 $this->logout();
@@ -109,6 +112,35 @@ class SiteController {
 
     public function home() {
         include("home.php");
+    }
+
+    public function search() {
+        $error_msg = "";
+
+        if (isset($_POST["search"]))
+        {
+            $param = "%{$_POST["search"]}%";
+            $data = $this->db->query("select * from Movies where title like ?;", "s", $param);
+            if ($data === false) {
+                $error_msg = "Error finding movies.";
+            }
+            else if (!empty($data)) {
+                // successful search
+            }
+            else { // empty, no movies found for specified search
+                    $error_msg = "No movies containing \"" . $_POST["search"] . "\" were found.";
+            }
+        }
+        else
+        {
+            // no search term entered, so return all movies
+            $data = $this->db->query("select * from Movies;");
+            if ($data === false) {
+                $error_msg = "Error finding movies.";
+            }
+        }
+
+        include("search.php");
     }
 
     public function profile() {

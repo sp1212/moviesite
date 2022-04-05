@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="?command=home">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="?command=search">Search</a>
+                </li>
             </ul>
 
             <!--User info and profile links-->
