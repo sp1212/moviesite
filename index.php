@@ -1,5 +1,4 @@
 <?php
-// Sources Used:  Sample trivia game code from lecture
 
 // Register the autoloader
 spl_autoload_register(function($classname) {

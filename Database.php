@@ -3,6 +3,7 @@
 class Database {
     private $mysqli;
 
+    // connect to the database
     public function __construct() {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $this->mysqli = new mysqli(Config::$db["host"], 
@@ -10,6 +11,7 @@ class Database {
                 Config::$db["database"]);
     }
 
+    // used to help construct and run db queries/commands
     public function query($query, $bparam=null, ...$params) {
         $stmt = $this->mysqli->prepare($query);
 

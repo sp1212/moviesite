@@ -10,28 +10,36 @@ class SiteController {
     }
 
     public function run() {
+        // start a user session if one doesn't exist
         if (session_status() == PHP_SESSION_NONE)
         {
             session_start();
         }
 
+        // allow user to go to createaccount page if not logged in
         if (!isset($_SESSION["username"]) && $this->command == "createaccount")
         {
             $this->command == "createaccount"; // repetitive but just continue
         }
+        // disallow a logged-in user from accessing the createaccount page
         else if (isset($_SESSION["username"]) && $this->command == "createaccount")
         {
             $this->command = "home";
         }
+        // disallow a logged-in user from accessing the login page
         else if (isset($_SESSION["username"]) && $this->command == "login")
         {
             $this->command = "home";
         }
+        // if not logged in and trying to access a core site page (thus not caught by statements above), redirect to login
         else if (!isset($_SESSION["username"]))
         {
             $this->command = "login";
         }
 
+        // run a specific function below based on the given command
+        // command is often seen appended to the url ex."?command=search"
+        // href="?command=search" can be used to run a certain command through html links
         switch($this->command) {
             case "home":
                 $this->home();
@@ -59,16 +67,26 @@ class SiteController {
     public function login() {
         $error_msg = "";
 
+        // if a username was entered
         if (isset($_POST["username"])) {
+            // look for a db entry with the given username
             $data = $this->db->query("select * from Users where userName = ?;", "s", $_POST["username"]);
+            // error checking
             if ($data === false) {
                 $error_msg = "Error checking for user.";
             }
+            // if an entry was found in the db for that username
             else if (!empty($data)) {
+                // attempt to verify the password for that given username
                 if (password_verify($_POST["password"], $data[0]["password"])) {
+                    // set username within the session to the username entered in the form, also found in the db
                     $_SESSION["username"] = $data[0]["userName"];
+                    // redirect to home
+                    // this type of redirect not always necessary, but it is here
+                    // because the session variable would otherwise not be updated until the next refresh
                     header("Location: ?command=home");
                 } else {
+                    // found a user in the db with that username but had the wrong password
                     $error_msg = "Invalid password.";
                 }
             }
@@ -80,6 +98,7 @@ class SiteController {
         include ("login.php");
     }
 
+    // similar to login functionality, but for creating a new account
     public function createaccount() {
         $error_msg = "";
 
