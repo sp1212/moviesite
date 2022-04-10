@@ -6,9 +6,13 @@ class Database {
     // connect to the database
     public function __construct() {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-        $this->mysqli = new mysqli(Config::$db["host"], 
+        try {
+            $this->mysqli = new mysqli(Config::$db["host"], 
                 Config::$db["user"], Config::$db["pass"], 
                 Config::$db["database"]);
+        } catch(Exception $e) {
+            echo "error: " . $e;
+        }
     }
 
     // used to help construct and run db queries/commands

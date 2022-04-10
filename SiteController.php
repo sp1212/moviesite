@@ -163,6 +163,11 @@ class SiteController {
     }
 
     public function profile() {
+        $param = $_SESSION['username'];
+        $data = $this->db->query("select * from Movies natural join Watchlists where userName = ?", "s", $param);
+        if($data === false) {
+            $error_msg = "You have no movies in your watchlist.";
+        }
         include ("profile.php");
     }
 
