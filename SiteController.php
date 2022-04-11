@@ -71,8 +71,9 @@ class SiteController {
         if (isset($_POST["username"])) {
             // look for a db entry with the given username
             $data = $this->db->query("select * from Users where userName = ?;", "s", $_POST["username"]);
+            $nameData = $this->db->query("select * from RealNames where userName = ?;", "s", $_POST["username"]);
             // error checking
-            if ($data === false) {
+            if ($data === false || $nameData === false) {
                 $error_msg = "Error checking for user.";
             }
             // if an entry was found in the db for that username
@@ -81,6 +82,8 @@ class SiteController {
                 if (password_verify($_POST["password"], $data[0]["password"])) {
                     // set username within the session to the username entered in the form, also found in the db
                     $_SESSION["username"] = $data[0]["userName"];
+                    $_SESSION["firstName"] = $nameData[0]["firstName"];
+                    $_SESSION["lastName"] = $nameData[0]["lastName"];
                     // redirect to home
                     // this type of redirect not always necessary, but it is here
                     // because the session variable would otherwise not be updated until the next refresh
@@ -117,9 +120,14 @@ class SiteController {
                 $insert = $this->db->query("insert into Users (userName, password) values (?, ?);", 
                         "ss", $_POST["username"], 
                         password_hash($_POST["password"], PASSWORD_DEFAULT));
-                if ($insert === false) {
+                $insert2 = $this->db->query("insert into RealNames (userName, firstName, lastName) values (?, ?, ?);", 
+                        "sss", $_POST["username"], $_POST["firstName"], $_POST["lastName"]);
+                if ($insert === false || $insert2 === false) {
                     $error_msg = "Error inserting user";
                 } else {
+                    $_SESSION["username"] = $_POST["username"];
+                    $_SESSION["firstName"] = $_POST["firstName"];
+                    $_SESSION["lastName"] = $_POST["lastName"];
                     $_SESSION["username"] = $_POST["username"];
                     header("Location: ?command=home");
                 }
