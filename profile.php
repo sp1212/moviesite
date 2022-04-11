@@ -36,27 +36,57 @@
             <div class="col-lg-2">
             </div>
         </div>
+        <h4>Favorite Movie</h4>
+        <div class="row justify-content-center" style="text-align: center">
+                <?php
+                    if (empty($favMovie))
+                    {
+                        echo "Favorite movie not found.  Try setting one.";
+                    }
+                    else
+                    {
+                        echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
+                                <img class=\"card-img-top\" src=\"" . $favMovie[0]["posterPath"] . "\" alt=\"Card image cap\">
+                                <div class=\"card-body\">
+                                    <h5 class=\"card-title\">" . $favMovie[0]["title"] . "</h5>
+                                </div>
+                                <ul class=\"list-group list-group-flush\">
+                                    <li class=\"list-group-item\">" . $favMovie[0]["genre"] . "</li>
+                                    <li class=\"list-group-item\">" . $favMovie[0]["runtime"] . " minutes" . "</li>
+                                    <li class=\"list-group-item\">" . $favMovie[0]["releaseDate"] . "</li>
+                                </ul>
+                            </div>";
+                    }
+                ?>
+        </div>
         <h4>Your Watchlist</h4>
         <div class="row justify-content-center" style="text-align: center">
                 <?php
-                    // loop through the array of movies returned into $data from the db query in SiteController.php under search()
-                    for ($i = 0; $i < count($data); $i++)
+                    if (empty($favMovie))
                     {
-                        echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
-                                <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
-                                <div class=\"card-body\">
-                                    <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
-                                </div>
-                                <ul class=\"list-group list-group-flush\">
-                                    <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
-                                    <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
-                                    <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
-                                    <form method=\"post\">
-                                        <button type=\"submit\" class=\"btn btn-danger\" name=\"removeButton\" value=" . $data[$i]["imdbId"] .">Remove</button>
-                                    </form>
-                                </ul>
-                            </div>";
+                        echo "Your watchlist is empty.  Try adding some movies.";
+                    }
+                    else
+                    {
+                        // loop through the array of movies returned into $data from the db query in SiteController.php under search()
+                        for ($i = 0; $i < count($data); $i++)
+                        {
+                            echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
+                                    <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
+                                    <div class=\"card-body\">
+                                        <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
+                                    </div>
+                                    <ul class=\"list-group list-group-flush\">
+                                        <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
+                                        <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
+                                        <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
+                                        <form method=\"post\">
+                                            <button type=\"submit\" class=\"btn btn-danger\" name=\"removeButton\" value=" . $data[$i]["imdbId"] .">Remove</button>
+                                        </form>
+                                    </ul>
+                                </div>";
 
+                        }
                     }
                 ?>
         </div>

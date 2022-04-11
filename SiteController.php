@@ -171,15 +171,14 @@ class SiteController {
 
         if(isset($_POST["removeButton"])) {
             //remove the movie from the user's watchlist that is associated with the returned imdb id
-            $param1 = $_SESSION["username"];
-            $param2 = $_POST["removeButton"];
-            echo '<pre>'; print_r($param1); echo '</pre>';
-            $data = $this->db->query("delete from Watchlists where userName = ? AND imdbId = ?;", "ss", $param1, $param2);
+            $data = $this->db->query("delete from Watchlists where userName = ? AND imdbId = ?;", "ss", $_SESSION["username"], $_POST["removeButton"]);
             if($data === false) {
                 $error_msg = "The movie couldn't be removed from your watchlist";
             }
             header("Location: ?command=profile");
         }
+
+        $favMovie = $this->db->query("select * from Movies natural join Favorites where userName = ?;", "s", $_SESSION["username"]);
 
         include ("profile.php");
     }
