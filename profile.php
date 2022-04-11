@@ -62,7 +62,7 @@
         <h4>Your Watchlist</h4>
         <div class="row justify-content-center" style="text-align: center">
                 <?php
-                    if (empty($favMovie))
+                    if (empty($data))
                     {
                         echo "Your watchlist is empty.  Try adding some movies.";
                     }
@@ -80,9 +80,11 @@
                                         <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
                                         <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
                                         <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
-                                        <form method=\"post\">
-                                            <button type=\"submit\" class=\"btn btn-danger\" name=\"removeButton\" value=" . $data[$i]["imdbId"] .">Remove</button>
-                                        </form>
+                                        <li class=\"list-group-item\">
+                                            <form method=\"post\">
+                                                <button type=\"submit\" class=\"btn btn-danger\" name=\"removeButton\" value=" . $data[$i]["imdbId"] .">Remove</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>";
 

@@ -159,26 +159,68 @@ class SiteController {
             }
         }
 
+        if (isset($_POST["favorite"]))
+        {
+            $findFav = $this->db->query("SELECT * FROM Favorites WHERE userName = ?;", "s", $_SESSION["username"]);
+            if ($findFav === false) {
+                $error_msg = "Error finding favorite movie.";
+            }
+            // if user doesn't already have a favorite set
+            else if (empty($findFav))
+            {
+                $insertFav = $this->db->query("INSERT INTO Favorites (userName, imdbId) VALUES (?, ?);", "ss", $_SESSION["username"], $_POST["favorite"]);
+                if ($insertFav === false) {
+                    $error_msg = "Error favoriting movie.";
+                }
+            }
+            // if user already has a favorite set, modify existing entry instead of adding a new entry
+            else
+            {
+                $setFav = $this->db->query("UPDATE Favorites SET imdbID = ? where userName = ?;", "ss", $_POST["favorite"], $_SESSION["username"]);
+                if ($setFav === false) {
+                    $error_msg = "Error favoriting movie.";
+                }
+            }
+        }
+
+        if (isset($_POST["watchlist"]))
+        {
+            $findMovie = $this->db->query("SELECT * FROM Watchlists WHERE userName = ? AND imdbId = ?;", "ss", $_SESSION["username"], $_POST["watchlist"]);
+            if ($findMovie === false) {
+                $error_msg = "Error finding movie.";
+            }
+            // if user doesn't already have the movie on their watchlist
+            else if (empty($findMovie))
+            {
+                $insertMovie = $this->db->query("INSERT INTO Watchlists (userName, imdbId) VALUES (?, ?);", "ss", $_SESSION["username"], $_POST["watchlist"]);
+                if ($insertMovie === false) {
+                    $error_msg = "Error watchlisting movie.";
+                }
+            }
+        }
+
         include("search.php");
     }
 
     public function profile() {
-        $param = $_SESSION['username'];
-        $data = $this->db->query("select * from Movies natural join Watchlists where userName = ?;", "s", $param);
+        $data = $this->db->query("select * from Movies natural join Watchlists where userName = ?;", "s", $_SESSION['username']);
         if($data === false) {
-            $error_msg = "You have no movies in your watchlist.";
+            $error_msg = "Error finding movies.";
         }
 
         if(isset($_POST["removeButton"])) {
             //remove the movie from the user's watchlist that is associated with the returned imdb id
             $data = $this->db->query("delete from Watchlists where userName = ? AND imdbId = ?;", "ss", $_SESSION["username"], $_POST["removeButton"]);
             if($data === false) {
-                $error_msg = "The movie couldn't be removed from your watchlist";
+                $error_msg = "The movie couldn't be removed from your watchlist.";
             }
             header("Location: ?command=profile");
         }
 
         $favMovie = $this->db->query("select * from Movies natural join Favorites where userName = ?;", "s", $_SESSION["username"]);
+        if($favMovie === false) {
+            $error_msg = "Error finding favorite movie.";
+        }
 
         include ("profile.php");
     }

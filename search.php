@@ -57,6 +57,16 @@
                                     <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
                                     <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
                                     <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
+                                    <li class=\"list-group-item\">
+                                        <form method=\"post\">
+                                            <button type=\"submit\" class=\"btn btn-warning\" name=\"favorite\" value=" . $data[$i]["imdbId"] .">Favorite</button>
+                                        </form>
+                                    </li>
+                                    <li class=\"list-group-item\">
+                                        <form method=\"post\">
+                                            <button type=\"submit\" class=\"btn btn-info\" name=\"watchlist\" value=" . $data[$i]["imdbId"] .">Watchlist</button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>";
                     }
