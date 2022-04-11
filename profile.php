@@ -51,8 +51,12 @@
                                     <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
                                     <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
                                     <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
+                                    <form method=\"post\">
+                                        <button type=\"submit\" class=\"btn btn-danger\" name=\"removeButton\" value=" . $data[$i]["imdbId"] .">Remove</button>
+                                    </form>
                                 </ul>
                             </div>";
+
                     }
                 ?>
         </div>

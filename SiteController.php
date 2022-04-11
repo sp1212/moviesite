@@ -164,10 +164,21 @@ class SiteController {
 
     public function profile() {
         $param = $_SESSION['username'];
-        $data = $this->db->query("select * from Movies natural join Watchlists where userName = ?", "s", $param);
+        $data = $this->db->query("select * from Movies natural join Watchlists where userName = ?;", "s", $param);
         if($data === false) {
             $error_msg = "You have no movies in your watchlist.";
         }
+
+        if(isset($_POST["removeButton"])) {
+            //remove the movie from the user's watchlist that is associated with the returned imdb id
+            $param1 = [$_SESSION["username"], $_POST["removeButton"]];
+            $data = $this->db->query("delete from Watchlists where userName = ? AND imdbId = ?;", "s", $param1);
+            //echo '<pre>'; print_r($param); echo '</pre>';
+            if($data === false) {
+                $error_msg = "The movie couldn't be removed from your watchlist";
+            }
+        }
+
         include ("profile.php");
     }
 

@@ -19,6 +19,9 @@ class Database {
     public function query($query, $bparam=null, ...$params) {
         $stmt = $this->mysqli->prepare($query);
 
+        //echo $params;
+        echo '<pre>'; print_r($params); echo '</pre>';
+
         if ($bparam != null)
             $stmt->bind_param($bparam, ...$params);
 
