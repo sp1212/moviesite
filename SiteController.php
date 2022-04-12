@@ -200,6 +200,14 @@ class SiteController {
         if($data === false) {
             echo "Error fetching movie.";
         }
+        $error_msg_reviews = "";
+        $reviews = $this->db->query("select * from Reviews where imdbId = ?;", "s", $imdbId);
+        if($reviews === false) {
+            $error_msg_reviews = "An error has occured";
+        } else if( empty($reviews)) {
+            //no reviews
+            $error_msg_reviews = "No reviews for this movie.";
+        }
         include ("movie.php");
     }
 

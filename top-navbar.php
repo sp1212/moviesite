@@ -19,9 +19,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="?command=search">Search</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="?command=movie">Movie (remove later)</a>
-                </li>
             </ul>
 
             <!--User info and profile links-->
