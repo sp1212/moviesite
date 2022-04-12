@@ -21,11 +21,24 @@
     </header>
 
     <main>
-        <div class="row bcr-name">
-            <h1>Movie</h1>
-            <?php
-                echo "<h1>" . $data[0]["title"]."</h1>"
-            ?>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <?php
+                    echo "<h1>" . $data[0]["title"]."</h1>
+                            <img height=\"25%\" src=\"" . $data[0]["posterPath"] . "\"></img>"
+                            
+                    ?>
+                </div>
+                <div class="col-8">
+                    <?php
+                    echo "<h4>" . $data[0]["releaseDate"] . " &#183; " . $data[0]["genre"] . " &#183; " . $data[0]["runtime"] ." mins </h4>
+                        <p>" . $data[0]["overview"] ."</p>
+                        "
+                    ?>
+                </div>
+            </div>
+            
         </div>
     </main>
 
