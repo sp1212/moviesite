@@ -44,6 +44,9 @@ class SiteController {
             case "home":
                 $this->home();
                 break;
+            case "movie":
+                $this->movie();
+                break;
             case "profile":
                 $this->profile();
                 break;
@@ -159,6 +162,13 @@ class SiteController {
             }
         }
 
+        if(isset($_POST["moviecard"])) {
+            //echo $_POST["moviecard"] . "pressed";
+            //header("Location: ?command=movie");
+            $this->movie($_POST["moviecard"]);
+            return;
+        }
+
         include("search.php");
     }
 
@@ -181,6 +191,16 @@ class SiteController {
         $favMovie = $this->db->query("select * from Movies natural join Favorites where userName = ?;", "s", $_SESSION["username"]);
 
         include ("profile.php");
+    }
+
+    public function movie($imdbId) {
+
+        //echo $imdbId;
+        $data = $this->db->query("select * from Movies where imdbId = ?;", "s", $imdbId);
+        if($data === false) {
+            echo "Error fetching movie.";
+        }
+        include ("movie.php");
     }
 
     public function logout() {

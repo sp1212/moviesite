@@ -49,15 +49,19 @@
                     for ($i = 0; $i < count($data); $i++)
                     {
                         echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
-                                <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
-                                <div class=\"card-body\">
-                                    <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
-                                </div>
-                                <ul class=\"list-group list-group-flush\">
-                                    <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
-                                    <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
-                                    <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
-                                </ul>
+                        <form method=\"post\">
+                        <button class=\"card-block stretched-link text-decoration-none\" action=\"?command=movie\" type=\"submit\" name=\"moviecard\" value=" . $data[$i]["imdbId"] .">        
+                            <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
+                                    <div class=\"card-body\">
+                                        <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
+                                    </div>
+                                    <ul class=\"list-group list-group-flush\">
+                                        <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
+                                        <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
+                                        <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
+                                    </ul>
+                        </a>
+                        </form>
                             </div>";
                     }
                 ?>
