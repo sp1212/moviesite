@@ -37,6 +37,46 @@
             <div class="col-lg-2">
             </div>
         </div>
+        <div class="row">
+            <div class="col-6 justify-content-center" style="text-align: center">
+                <h4>Followers</h4>
+                <?php
+                    if (empty($followers))
+                    {
+                        echo "No followers found.";
+                    }
+                    else
+                    {   
+                        echo
+                        "<ul class=\"list-group\">"; 
+                        for ($i = 0; $i < count($followers); $i++)
+                        {
+                            echo "<li class=\"list-group-item\">" . $followers[$i]["followingUserName"] . "</li>";
+                        }
+                        echo "</ul>";
+                    }
+                ?>
+            </div>
+            <div class="col-6 justify-content-center" style="text-align: center">
+                <h4>Following</h4>
+                <?php
+                    if (empty($followed))
+                    {
+                        echo "No following users found.";
+                    }
+                    else
+                    {   
+                        echo
+                        "<ul class=\"list-group\">"; 
+                        for ($i = 0; $i < count($followed); $i++)
+                        {
+                            echo "<li class=\"list-group-item\">" . $followed[$i]["followedUserName"] . "</li>";
+                        }
+                        echo "</ul>";
+                    }
+                ?>
+            </div>
+        </div>
         <h4>Favorite Movie</h4>
         <div class="row justify-content-center" style="text-align: center">
                 <?php

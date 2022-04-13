@@ -60,7 +60,7 @@
                                     <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
                                     <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
                                     <li class=\"list-group-item\"> </li>
-                                    </ul>
+                                </ul>
                         </button>
                         </form>
                                     <li class=\"list-group-item\">
