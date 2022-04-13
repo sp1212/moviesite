@@ -50,7 +50,7 @@
                     {
                         echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
                         <form method=\"post\">
-                        <button class=\"card-block stretched-link text-decoration-none\" action=\"?command=movie\" type=\"submit\" name=\"moviecard\" value=" . $data[$i]["imdbId"] .">        
+                        <button class=\"text-decoration-none\" action=\"?command=movie\" type=\"submit\" name=\"moviecard\" value=" . $data[$i]["imdbId"] .">        
                                 <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
                                 <div class=\"card-body\">
                                     <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
@@ -60,6 +60,8 @@
                                     <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
                                     <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
                                     <li class=\"list-group-item\">
+                        </button>
+                        </form>
                                         <form method=\"post\">
                                             <button type=\"submit\" class=\"btn btn-warning\" name=\"favorite\" value=" . $data[$i]["imdbId"] .">Favorite</button>
                                         </form>
@@ -83,8 +85,6 @@
                                         </form>
                                     </li>
                                 </ul>
-                         </button>
-                        </form>
                             </div>";
                     }
                 ?>
