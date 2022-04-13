@@ -30,6 +30,7 @@
             </div>
             <div class="col">
                 <div class="row bcr-name">
+                    <h4><?=$_SESSION['firstName']?> <?=$_SESSION['lastName']?></h4>
                     <h4><?=$_SESSION['username']?></h4>
                 </div>
             </div>
@@ -41,11 +42,11 @@
                 <?php
                     if (empty($favMovie))
                     {
-                        echo "Favorite movie not found.  Try setting one.";
+                        echo "Favorite movie not set.";
                     }
                     else
                     {
-                        echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
+                        echo "<div class=\"card border-warning shadow-lg\" style=\"width: 12rem; margin: 1rem;\">
                                 <img class=\"card-img-top\" src=\"" . $favMovie[0]["posterPath"] . "\" alt=\"Card image cap\">
                                 <div class=\"card-body\">
                                     <h5 class=\"card-title\">" . $favMovie[0]["title"] . "</h5>
@@ -59,19 +60,19 @@
                     }
                 ?>
         </div>
-        <h4>Your Watchlist</h4>
+        <h4>Watchlist</h4>
         <div class="row justify-content-center" style="text-align: center">
                 <?php
-                    if (empty($favMovie))
+                    if (empty($data))
                     {
-                        echo "Your watchlist is empty.  Try adding some movies.";
+                        echo "Your watchlist is empty.";
                     }
                     else
                     {
                         // loop through the array of movies returned into $data from the db query in SiteController.php under search()
                         for ($i = 0; $i < count($data); $i++)
                         {
-                            echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
+                            echo "<div class=\"card border-info shadow-lg\" style=\"width: 12rem; margin: 1rem;\">
                                     <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
                                     <div class=\"card-body\">
                                         <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
@@ -80,9 +81,42 @@
                                         <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
                                         <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
                                         <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
-                                        <form method=\"post\">
-                                            <button type=\"submit\" class=\"btn btn-danger\" name=\"removeButton\" value=" . $data[$i]["imdbId"] .">Remove</button>
-                                        </form>
+                                        <li class=\"list-group-item\">
+                                            <form method=\"post\">
+                                                <button type=\"submit\" class=\"btn btn-danger\" name=\"removeButton\" value=" . $data[$i]["imdbId"] .">Remove</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>";
+
+                        }
+                    }
+                ?>
+        </div>
+        <h4>Ratings</h4>
+        <div class="row justify-content-center" style="text-align: center">
+                <?php
+                    if (empty($ratingsData))
+                    {
+                        echo "You haven't rated any movies.";
+                    }
+                    else
+                    {
+                        // loop through the array of movies returned into $ratingsData from the db query in SiteController.php under search()
+                        for ($i = 0; $i < count($ratingsData); $i++)
+                        {
+                            echo "<div class=\"card shadow-lg\" style=\"width: 12rem; margin: 1rem;\">
+                                    <img class=\"card-img-top\" src=\"" . $ratingsData[$i]["posterPath"] . "\" alt=\"Card image cap\">
+                                    <div class=\"card-body\">
+                                        <h5 class=\"card-title\">" . $ratingsData[$i]["title"] . "</h5>
+                                    </div>
+                                    <ul class=\"list-group list-group-flush\">
+                                        <li class=\"list-group-item\">" . "Your Rating:  " . $ratingsData[$i]["rating"] . "</li>
+                                        <li class=\"list-group-item\">
+                                            <form method=\"post\">
+                                                <button type=\"submit\" class=\"btn btn-danger\" name=\"removeRating\" value=" . $ratingsData[$i]["imdbId"] .">Remove</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>";
 

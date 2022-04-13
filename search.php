@@ -51,16 +51,39 @@
                         echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
                         <form method=\"post\">
                         <button class=\"card-block stretched-link text-decoration-none\" action=\"?command=movie\" type=\"submit\" name=\"moviecard\" value=" . $data[$i]["imdbId"] .">        
-                            <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
-                                    <div class=\"card-body\">
-                                        <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
-                                    </div>
-                                    <ul class=\"list-group list-group-flush\">
-                                        <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
-                                        <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
-                                        <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
-                                    </ul>
-                        </a>
+                                <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
+                                <div class=\"card-body\">
+                                    <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
+                                </div>
+                                <ul class=\"list-group list-group-flush\">
+                                    <li class=\"list-group-item\">" . $data[$i]["genre"] . "</li>
+                                    <li class=\"list-group-item\">" . $data[$i]["runtime"] . " minutes" . "</li>
+                                    <li class=\"list-group-item\">" . $data[$i]["releaseDate"] . "</li>
+                                    <li class=\"list-group-item\">
+                                        <form method=\"post\">
+                                            <button type=\"submit\" class=\"btn btn-warning\" name=\"favorite\" value=" . $data[$i]["imdbId"] .">Favorite</button>
+                                        </form>
+                                    </li>
+                                    <li class=\"list-group-item\">
+                                        <form method=\"post\">
+                                            <button type=\"submit\" class=\"btn btn-info\" name=\"watchlist\" value=" . $data[$i]["imdbId"] .">Watchlist</button>
+                                        </form>
+                                    </li>
+                                    <li class=\"list-group-item\">
+                                        <form method=\"post\">
+                                            <label for=\"rating\">Rating:</label>
+                                            <select id=\"rating\" name=\"rating\">
+                                                <option value=\"5\">5</option>
+                                                <option value=\"4\">4</option>
+                                                <option value=\"3\">3</option>
+                                                <option value=\"2\">2</option>
+                                                <option value=\"1\">1</option>
+                                            </select>
+                                            <button type=\"submit\" class=\"btn btn-secondary\" name=\"rate\" value=" . $data[$i]["imdbId"] .">Rate</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                         </button>
                         </form>
                             </div>";
                     }
