@@ -67,6 +67,19 @@
                                             <button type=\"submit\" class=\"btn btn-info\" name=\"watchlist\" value=" . $data[$i]["imdbId"] .">Watchlist</button>
                                         </form>
                                     </li>
+                                    <li class=\"list-group-item\">
+                                        <form method=\"post\">
+                                            <label for=\"rating\">Rating:</label>
+                                            <select id=\"rating\" name=\"rating\">
+                                                <option value=\"5\">5</option>
+                                                <option value=\"4\">4</option>
+                                                <option value=\"3\">3</option>
+                                                <option value=\"2\">2</option>
+                                                <option value=\"1\">1</option>
+                                            </select>
+                                            <button type=\"submit\" class=\"btn btn-secondary\" name=\"rate\" value=" . $data[$i]["imdbId"] .">Rate</button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>";
                     }

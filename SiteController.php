@@ -207,6 +207,30 @@ class SiteController {
             }
         }
 
+        if (isset($_POST["rate"]))
+        {
+            $findRating = $this->db->query("SELECT * FROM Rates WHERE userName = ? AND imdbId = ?;", "ss", $_SESSION["username"], $_POST["rate"]);
+            if ($findRating === false) {
+                $error_msg = "Error checking if movie has already been rated.";
+            }
+            // if user hasn't already rated the movie
+            else if (empty($findRating))
+            {
+                $insertRating = $this->db->query("INSERT INTO Rates (userName, imdbId, rating) VALUES (?, ?, ?);", "sss", $_SESSION["username"], $_POST["rate"], $_POST["rating"]);
+                if ($insertRating === false) {
+                    $error_msg = "Error rating movie.";
+                }
+            }
+            // if user already has a rating set, modify the existing rating
+            else
+            {
+                $setRating = $this->db->query("UPDATE Rates SET rating = ? WHERE userName = ? AND imdbId = ?;", "sss", $_POST["rating"], $_SESSION["username"], $_POST["rate"]);
+                if ($setRating === false) {
+                    $error_msg = "Error rating movie.";
+                }
+            }
+        }
+
         include("search.php");
     }
 
