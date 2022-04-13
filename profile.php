@@ -62,7 +62,7 @@
                 <?php
                     if (empty($followed))
                     {
-                        echo "No following users found.";
+                        echo "No followed users found.";
                     }
                     else
                     {   
@@ -97,7 +97,7 @@
                 </form>
                 </div>
             </div>
-            
+
         </div>
         <h4>Favorite Movie</h4>
         <div class="row justify-content-center" style="text-align: center">
