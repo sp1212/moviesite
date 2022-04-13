@@ -93,6 +93,37 @@
                     }
                 ?>
         </div>
+        <h4>Ratings</h4>
+        <div class="row justify-content-center" style="text-align: center">
+                <?php
+                    if (empty($ratingsData))
+                    {
+                        echo "You haven't rated any movies.";
+                    }
+                    else
+                    {
+                        // loop through the array of movies returned into $ratingsData from the db query in SiteController.php under search()
+                        for ($i = 0; $i < count($ratingsData); $i++)
+                        {
+                            echo "<div class=\"card shadow-lg\" style=\"width: 12rem; margin: 1rem;\">
+                                    <img class=\"card-img-top\" src=\"" . $ratingsData[$i]["posterPath"] . "\" alt=\"Card image cap\">
+                                    <div class=\"card-body\">
+                                        <h5 class=\"card-title\">" . $ratingsData[$i]["title"] . "</h5>
+                                    </div>
+                                    <ul class=\"list-group list-group-flush\">
+                                        <li class=\"list-group-item\">" . "Your Rating:  " . $ratingsData[$i]["rating"] . "</li>
+                                        <li class=\"list-group-item\">
+                                            <form method=\"post\">
+                                                <button type=\"submit\" class=\"btn btn-danger\" name=\"removeRating\" value=" . $ratingsData[$i]["imdbId"] .">Remove</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>";
+
+                        }
+                    }
+                ?>
+        </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"

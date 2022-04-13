@@ -230,6 +230,20 @@ class SiteController {
             $error_msg = "Error finding favorite movie.";
         }
 
+        if(isset($_POST["removeRating"])) {
+            //remove the user's rating of the given movie
+            $dataTemp = $this->db->query("delete from Rates where userName = ? AND imdbId = ?;", "ss", $_SESSION["username"], $_POST["removeRating"]);
+            if($dataTemp === false) {
+                $error_msg = "Your rating could not be removed.";
+            }
+            header("Location: ?command=profile");
+        }
+
+        $ratingsData = $this->db->query("select * from Movies natural join Rates where userName = ?;", "s", $_SESSION['username']);
+        if($ratingsData === false) {
+            $error_msg = "Error finding movies.";
+        }
+
         include ("profile.php");
     }
 
