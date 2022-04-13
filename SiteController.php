@@ -244,6 +244,8 @@ class SiteController {
     }
 
     public function profile() {
+        $error_msg = "";
+
         $data = $this->db->query("select * from Movies natural join Watchlists where userName = ?;", "s", $_SESSION['username']);
         if($data === false) {
             $error_msg = "Error finding movies.";
@@ -285,6 +287,39 @@ class SiteController {
         $followed = $this->db->query("select * from Follows where followingUserName = ?;", "s", $_SESSION["username"]);
         if($followed === false) {
             $error_msg = "Error finding followed users.";
+        }
+
+        if(isset($_POST["removeFollowing"])) {
+            // remove the user's following of the specified user
+            $findFollowing = $this->db->query("delete from Follows where followingUserName = ? AND followedUserName = ?;", "ss", $_SESSION["username"], $_POST["removeFollowing"]);
+            if($findFollowing === false) {
+                $error_msg = "Your following could not be removed.";
+            }
+            header("Location: ?command=profile");
+        }
+
+        if(isset($_POST["follow"])) {
+            $findFollow = $this->db->query("select * from Follows where followingUserName = ? and followedUserName = ?;", "ss", $_SESSION["username"], $_POST["follow"]);
+            $findUser = $this->db->query("select * from Users where userName = ?;", "s", $_POST["follow"]);
+            if($findFollow === false || $findUser === false) {
+                $error_msg = "Follow find error.";
+            }
+            else if (empty($findUser))
+            {
+                $error_msg = "User: \"" . $_POST["follow"] . "\" not found.";
+            }
+            else if (empty($findFollow))
+            {
+                $insertFollow = $this->db->query("INSERT INTO Follows (followingUserName, followedUserName) VALUES (?, ?);", "ss", $_SESSION["username"], $_POST["follow"]);
+                if($insertFollow === false) {
+                    $error_msg = "Follow insertion error.";
+                }
+                header("Location: ?command=profile");
+            }
+            else
+            {
+                $error_msg = "Already following user: " . $_POST["follow"];
+            }
         }
 
         include ("profile.php");

@@ -70,12 +70,34 @@
                         "<ul class=\"list-group\">"; 
                         for ($i = 0; $i < count($followed); $i++)
                         {
-                            echo "<li class=\"list-group-item\">" . $followed[$i]["followedUserName"] . "</li>";
+                            echo "<li class=\"list-group-item\">" . $followed[$i]["followedUserName"];
+                            echo "<form method=\"post\">
+                                    <button type=\"submit\" class=\"btn btn-danger\" name=\"removeFollowing\" value=" . $followed[$i]["followedUserName"] .">Remove</button>
+                                </form> </li>";
                         }
                         echo "</ul>";
                     }
                 ?>
+
+                <div class="row">
+                <form action="?command=profile" method="post">
+                    <div class="mb-3">
+                        <label for="follow" class="form-label">Follow User</label>
+                        <input type="text" class="form-control" id="follow" name="follow" placeholder="username"/>
+                    </div>
+                    <?php 
+                        if (strcmp($error_msg, "") != 0)
+                        {
+                            echo "<div class='alert alert-danger'>" . $error_msg . "</div>";
+                        }
+                    ?>
+                    <div class="text-center">                
+                        <button type="submit" class="btn btn-primary">Follow User</button>
+                    </div>
+                </form>
+                </div>
             </div>
+            
         </div>
         <h4>Favorite Movie</h4>
         <div class="row justify-content-center" style="text-align: center">
