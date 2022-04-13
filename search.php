@@ -49,6 +49,8 @@
                     for ($i = 0; $i < count($data); $i++)
                     {
                         echo "<div class=\"card\" style=\"width: 12rem; margin: 1rem;\">
+                        <form method=\"post\">
+                        <button class=\"card-block stretched-link text-decoration-none\" action=\"?command=movie\" type=\"submit\" name=\"moviecard\" value=" . $data[$i]["imdbId"] .">        
                                 <img class=\"card-img-top\" src=\"" . $data[$i]["posterPath"] . "\" alt=\"Card image cap\">
                                 <div class=\"card-body\">
                                     <h5 class=\"card-title\">" . $data[$i]["title"] . "</h5>
@@ -81,6 +83,8 @@
                                         </form>
                                     </li>
                                 </ul>
+                         </button>
+                        </form>
                             </div>";
                     }
                 ?>

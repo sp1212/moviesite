@@ -44,6 +44,9 @@ class SiteController {
             case "home":
                 $this->home();
                 break;
+            case "movie":
+                $this->movie();
+                break;
             case "profile":
                 $this->profile();
                 break;
@@ -167,6 +170,12 @@ class SiteController {
             }
         }
 
+        if(isset($_POST["moviecard"])) {
+            //echo $_POST["moviecard"] . "pressed";
+            //header("Location: ?command=movie");
+            $this->movie($_POST["moviecard"]);
+            return;
+        }
         if (isset($_POST["favorite"]))
         {
             $findFav = $this->db->query("SELECT * FROM Favorites WHERE userName = ?;", "s", $_SESSION["username"]);
@@ -269,6 +278,24 @@ class SiteController {
         }
 
         include ("profile.php");
+    }
+
+    public function movie($imdbId) {
+
+        //echo $imdbId;
+        $data = $this->db->query("select * from Movies where imdbId = ?;", "s", $imdbId);
+        if($data === false) {
+            echo "Error fetching movie.";
+        }
+        $error_msg_reviews = "";
+        $reviews = $this->db->query("select * from Reviews where imdbId = ?;", "s", $imdbId);
+        if($reviews === false) {
+            $error_msg_reviews = "An error has occured";
+        } else if( empty($reviews)) {
+            //no reviews
+            $error_msg_reviews = "No reviews for this movie.";
+        }
+        include ("movie.php");
     }
 
     public function logout() {
