@@ -28,7 +28,18 @@
                     echo "<h1>" . $data[0]["title"]."</h1>
                             <img height=\"25%\" src=\"" . $data[0]["posterPath"] . "\"></img>"
                             
+                            
                     ?>
+                    <?php 
+                        if (strcmp($error_msg_rating, "") != 0)
+                        {
+                            echo "<div class='alert alert-danger'>" . $error_msg_rating . "</div>";
+                        } else {
+                            
+                            echo "<h3>Rating: " . $avg_rating[0]["AVG(rating)"] ."/5</h3>";
+                            
+                        }
+                ?>
                 </div>
                 <div class="col-8">
                     <?php
