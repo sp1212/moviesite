@@ -295,6 +295,18 @@ class SiteController {
             //no reviews
             $error_msg_reviews = "No reviews for this movie.";
         }
+
+        $error_msg_rating = "";
+        $avg_rating = $this->db->query("select AVG(rating) from Rates where imdbId = ?", "s", $imdbId);
+        if($avg_rating === false) {
+            $error_msg_rating = "An error has occured";
+        } else if( empty($avg_rating[0]["AVG(rating)"])){
+            //no reviews
+            $error_msg_rating = "No ratings for this movie.";
+        }
+
+
+
         include ("movie.php");
     }
 
