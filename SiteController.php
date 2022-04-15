@@ -56,6 +56,9 @@ class SiteController {
             case "search":
                 $this->search();
                 break;
+            case "leaveReview":
+                $this->leaveReview(); 
+                break; 
             case "logout":
                 $this->logout();
             case "login":
@@ -146,6 +149,7 @@ class SiteController {
 
     public function search() {
         $error_msg = "";
+        setcookie("currentMovie",'', time() - 3600, '/');
 
         if (isset($_POST["search"]))
         {
@@ -175,6 +179,11 @@ class SiteController {
             //header("Location: ?command=movie");
             $this->movie($_POST["moviecard"]);
             return;
+        }
+        if(isset($_POST["review"])){
+            setcookie("currentMovie", $_POST["review"], time() + 3600, '/');
+            header("Location: ?command=leaveReview");
+            return; 
         }
         if (isset($_POST["favorite"]))
         {
@@ -353,6 +362,38 @@ class SiteController {
 
 
         include ("movie.php");
+    }
+
+    public function leaveReview(){
+        $message = ""; 
+        $error_msg = "";
+        $thisData = $this->db->query("select * from Movies where imdbId = ?;", "s", $_COOKIE["currentMovie"]);
+        if(isset($_COOKIE["currentMovie"])){
+            $checkReviewExists = $this->db->query("select * from Reviews where imdbId = '" . $_COOKIE["currentMovie"] . "' and userName = '".  $_SESSION["username"] . "'");
+            if(!empty($checkReviewExists)){
+                $message = $checkReviewExists[0]["textContent"];
+                if(isset($_POST["leavereview"])){
+                    $update = $this->db->query("update Reviews set textContent = '" . $_POST["leavereview"] . "' where imdbId = '" . $_COOKIE["currentMovie"] . "' and userName = '".  $_SESSION["username"] . "'");
+                    if($update == false){
+                        $error_msg = "Error updating movie";
+                    }
+                    setcookie("currentMovie", "", time() - 3600, '/');
+                    header("Location: ?command=search");
+                }
+            }
+            elseif(empty($checkReviewExists)) {
+                if(isset($_POST["leavereview"])){
+                    $message = $_POST["leavereview"];
+                    $insert = $this->db->query("insert into Reviews (imdbId, userName, textContent) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $message);
+                    if($insert == false){
+                        $error_msg = "You have already reviewed this movie";
+                    }
+                    setcookie("currentMovie", "", time() - 3600, '/');
+                    header("Location: ?command=search");
+                }
+            }
+        }
+        include ("leavereview.php");
     }
 
     public function logout() {
