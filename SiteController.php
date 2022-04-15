@@ -367,7 +367,26 @@ class SiteController {
     public function leaveReview(){
         $message = ""; 
         $error_msg = "";
+        $reviews = ""; 
         $thisData = $this->db->query("select * from Movies where imdbId = ?;", "s", $_COOKIE["currentMovie"]);
+        $allReviews = $this->db->query("select * from Reviews where imdbId=?;" ,"s", $_COOKIE["currentMovie"]);
+        $i = 0;
+        while(!empty($allReviews[$i])){
+            $row = $allReviews[$i];
+            $reviews .= 
+            "<div class='shadow d-flex justify-content-center py-2'>
+                <div class='second py-2 px-2'> <span class='text1'>". $row["textContent"] . "</span>
+                    <div class='d-flex justify-content-between py-1 pt-2'>
+                        <div><span class='text2'>" .$row["userName"]."</span></div>
+                    </div>
+                </div>
+                <div class = 'row' style = 'margin-left: 10px'>
+                    <button class = 'btn btn-success'>Like</button>
+                    <button class = 'btn btn-danger'>Dislike</button>
+                </div>
+            </div>";
+            $i += 1;
+        }
         if(isset($_COOKIE["currentMovie"])){
             $checkReviewExists = $this->db->query("select * from Reviews where imdbId = '" . $_COOKIE["currentMovie"] . "' and userName = '".  $_SESSION["username"] . "'");
             if(!empty($checkReviewExists)){
