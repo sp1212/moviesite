@@ -381,11 +381,19 @@ class SiteController {
                     </div>
                 </div>
                 <div class = 'row' style = 'margin-left: 10px'>
-                    <button class = 'btn btn-success'>Like</button>
-                    <button class = 'btn btn-danger'>Dislike</button>
+                    <form method = 'post'>
+                        <button class = 'btn btn-success type = 'submit' name = 'Like' value =" .$row["userName"].">Like</button>
+                        <button class = 'btn btn-danger' type ='submit' name = 'Dislike' value=" .$row["userName"].">Dislike</button>
+                    </form>
                 </div>
             </div>";
             $i += 1;
+        }
+        if(isset($_POST["Like"])){
+            $addLike = $this->db->query("insert into Likes (imdbId, likingUserName, reviewingUserName) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Like"]);
+        }
+        if(isset($_POST["Dislike"])){
+            $addDislike = $this->db->query("insert into Dislikes (imdbId, dislikingUserName, reviewingUserName) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Dislike"]);
         }
         if(isset($_COOKIE["currentMovie"])){
             $checkReviewExists = $this->db->query("select * from Reviews where imdbId = '" . $_COOKIE["currentMovie"] . "' and userName = '".  $_SESSION["username"] . "'");
