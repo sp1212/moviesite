@@ -279,12 +279,12 @@ class SiteController {
             $error_msg = "Error finding movies.";
         }
 
-        $followers = $this->db->query("select * from Follows where followedUserName = ?;", "s", $_SESSION["username"]);
+        $followers = $this->db->query("select * from Follows Join RealNames on followedUserName=userName where followedUserName = ?;", "s", $_SESSION["username"]);
         if($followers === false) {
             $error_msg = "Error finding followers.";
         }
 
-        $followed = $this->db->query("select * from Follows where followingUserName = ?;", "s", $_SESSION["username"]);
+        $followed = $this->db->query("select * from Follows Join RealNames on followedUserName=userName where followingUserName = ?;", "s", $_SESSION["username"]);
         if($followed === false) {
             $error_msg = "Error finding followed users.";
         }

@@ -51,7 +51,7 @@
                         "<ul class=\"list-group\">"; 
                         for ($i = 0; $i < count($followers); $i++)
                         {
-                            echo "<li class=\"list-group-item\">" . $followers[$i]["followingUserName"] . "</li>";
+                            echo "<li class=\"list-group-item\">" . $followed[$i]["firstName"] . " " . $followed[$i]["lastName"] . " (" .$followed[$i]["followedUserName"] . ")"  . "</li>";
                         }
                         echo "</ul>";
                     }
@@ -70,9 +70,9 @@
                         "<ul class=\"list-group\">"; 
                         for ($i = 0; $i < count($followed); $i++)
                         {
-                            echo "<li class=\"list-group-item\">" . $followed[$i]["followedUserName"];
+                            echo "<li class=\"list-group-item\">" . $followed[$i]["firstName"] . " " . $followed[$i]["lastName"] . " (" .$followed[$i]["followedUserName"] . ")";
                             echo "<form method=\"post\">
-                                    <button type=\"submit\" class=\"btn btn-danger\" name=\"removeFollowing\" value=" . $followed[$i]["followedUserName"] .">Remove</button>
+                                    <button type=\"submit\" class=\"btn btn-danger\" name=\"removeFollowing\" value=" . $followed[$i]["followedUserName"] .">Unfollow</button>
                                 </form> </li>";
                         }
                         echo "</ul>";
