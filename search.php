@@ -86,6 +86,12 @@
                                             <button type=\"submit\" class=\"btn btn-secondary\" name=\"rate\" value=" . $data[$i]["imdbId"] .">Rate</button>
                                         </form>
                                     </li>
+                                    <li class=\"list-group-item\">
+                                        <form method=\"post\">
+                                            <label for=\"rating\">Review:</label>
+                                            <button type=\"submit\" class=\"btn btn-secondary\" name=\"review\" value=" . $data[$i]["imdbId"] .">Leave Review</button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>";
                     }
