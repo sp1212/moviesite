@@ -28,7 +28,7 @@
                     echo "<img height=\"25%\" src=\"" . $thisData[0]["posterPath"] . "\"></img>"
             ?>
             </div>
-            <div class = "col-4" style ="margin-top: 50px">
+            <div class = "col-6" style ="margin-top: 50px">
                 <form id="form1" method="post" action="?command=leaveReview">
                     <h6><?= $_SESSION["firstName"]?>'s Review:<h6>
                     <textarea class = "shadow form-control" type="leavereview" id="leavereview" name = "leavereview" placeholder = "Enter your review here" maxlength="100"><?= $message ?></textarea>

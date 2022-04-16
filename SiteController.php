@@ -359,8 +359,6 @@ class SiteController {
             $error_msg_rating = "No ratings for this movie.";
         }
 
-
-
         include ("movie.php");
     }
 
@@ -373,6 +371,14 @@ class SiteController {
         $i = 0;
         while(!empty($allReviews[$i])){
             $row = $allReviews[$i];
+            $numLikes[$i] = $this->db->query("SELECT COUNT(*) FROM Likes where imdbId = ? and reviewingUserName = ?;", "ss", $_COOKIE["currentMovie"], $row["userName"]);
+            $numDislikes[$i] = $this->db->query("SELECT COUNT(*) FROM Dislikes where imdbId = ? and reviewingUserName = ?;", "ss", $_COOKIE["currentMovie"], $row["userName"]);
+            if($numLikes[$i] === false) {
+                $numLikes[$i] = 0;
+            }
+            if($numDislikes[$i] === false) {
+                $numDislikes[$i] = 0;
+            }
             $reviews .= 
             "<div class='shadow d-flex justify-content-center py-2'>
                 <div class='second py-2 px-2'> <span class='text1'>". $row["textContent"] . "</span>
@@ -381,9 +387,9 @@ class SiteController {
                     </div>
                 </div>
                 <div class = 'row' style = 'margin-left: 10px'>
-                    <form method = 'post'>
-                        <button class = 'btn btn-success type = 'submit' name = 'Like' value =" .$row["userName"].">Like</button>
-                        <button class = 'btn btn-danger' type ='submit' name = 'Dislike' value=" .$row["userName"].">Dislike</button>
+                    <form method = \"post\" >
+                        <button class = 'btn btn-success mb-2' type = \"submit\" name = 'Like' value =" .$row["userName"].">Like</button><label class=\"mb-2\">" . $numLikes[$i][0]["COUNT(*)"] ."</label>
+                        <button class = 'btn btn-danger mb-2' type =\"submit\" name = 'Dislike' value=" .$row["userName"].">Dislike</button><label class=\"mb-2\">" .$numDislikes[$i][0]["COUNT(*)"] ."</label>
                     </form>
                 </div>
             </div>";
@@ -405,7 +411,9 @@ class SiteController {
                         $error_msg = "Error updating movie";
                     }
                     setcookie("currentMovie", "", time() - 3600, '/');
-                    header("Location: ?command=search");
+                    $this->movie($_COOKIE["currentMovie"]);
+                    return;
+                    //header("Location: ?command=search");
                 }
             }
             elseif(empty($checkReviewExists)) {
@@ -416,7 +424,9 @@ class SiteController {
                         $error_msg = "You have already reviewed this movie";
                     }
                     setcookie("currentMovie", "", time() - 3600, '/');
-                    header("Location: ?command=search");
+                    $this->movie($_COOKIE["currentMovie"]);
+                    return;
+                    //header("Location: ?command=search");
                 }
             }
         }

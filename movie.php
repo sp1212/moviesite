@@ -51,17 +51,7 @@
             </div>
             <div class="row">
                 <h1>Reviews</h1>
-                <?php 
-                        if (strcmp($error_msg_reviews, "") != 0)
-                        {
-                            echo "<div class='alert alert-danger'>" . $error_msg_reviews . "</div>";
-                        } else {
-                            for ($i = 0; $i < count($reviews); $i++) {
-                                echo "<p>". $reviews[$i]["textContent"] . "</p>";
-                            }
-                            
-                        }
-                ?>
+                <?= $reviews ?>
             </div>
         </div>
     </main>
