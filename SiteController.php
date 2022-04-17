@@ -288,7 +288,7 @@ class SiteController {
             $error_msg = "Error finding movies.";
         }
 
-        $followers = $this->db->query("select * from Follows Join RealNames on followedUserName=userName where followedUserName = ?;", "s", $_SESSION["username"]);
+        $followers = $this->db->query("select * from Follows Join RealNames on followingUserName=userName where followedUserName = ?;", "s", $_SESSION["username"]);
         if($followers === false) {
             $error_msg = "Error finding followers.";
         }
