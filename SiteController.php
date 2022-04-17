@@ -395,13 +395,28 @@ class SiteController {
             </div>";
             $i += 1;
         }
+        $likeError = "";
         if(isset($_POST["Like"])){
-            $addLike = $this->db->query("insert into Likes (imdbId, likingUserName, reviewingUserName) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Like"]);
+            $checkIfLiked = $this->db->query("select * from Likes where imdbId = ? AND likingUserName = ? and reviewingUserName = ?", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Like"]);
+            if(empty($checkIfLiked)) {
+                $addLike = $this->db->query("insert into Likes (imdbId, likingUserName, reviewingUserName) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Like"]);
+
+            } else {
+                $likeError = "You already liked this comment.";
+            }
             header("Location: ?command=leaveReview");
         }
+        $dislikeError= "";
         if(isset($_POST["Dislike"])){
-            $addDislike = $this->db->query("insert into Dislikes (imdbId, dislikingUserName, reviewingUserName) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Dislike"]);
+            $checkIfDisliked = $this->db->query("select * from Dislikes where imdbId = ? AND dislikingUserName = ? and reviewingUserName = ?", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Dislike"]);
+            if(empty($checkIfDisliked)) {
+                $addDislike = $this->db->query("insert into Dislikes (imdbId, dislikingUserName, reviewingUserName) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Dislike"]);
+
+            } else {
+                $dislikeError = "You already disliked this comment.";
+            }
             header("Location: ?command=leaveReview");
+
         }   
         if(isset($_COOKIE["currentMovie"])){
             $checkReviewExists = $this->db->query("select * from Reviews where imdbId = '" . $_COOKIE["currentMovie"] . "' and userName = '".  $_SESSION["username"] . "'");

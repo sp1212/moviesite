@@ -43,6 +43,17 @@
                 <div class="container justify-content-center mt-5 border-left border-right">
                     <h1>All Reviews</h1>
                     <?= $reviews ?>
+                    <?php
+                        if (strcmp($likeError, "") != 0)
+                        {
+                            echo "<div class='alert alert-danger'>" . $likeError . "</div>";
+                        }
+                        if (strcmp($dislikeError, "") != 0)
+                        {
+                            echo "<div class='alert alert-danger'>" . $dislikeError . "</div>";
+                        }
+                    ?>
+                    
             </div>
             </div>
         </div>
