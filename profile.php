@@ -51,7 +51,7 @@
                         "<ul class=\"list-group\">"; 
                         for ($i = 0; $i < count($followers); $i++)
                         {
-                            echo "<li class=\"list-group-item\">" . $followers[$i]["firstName"] . " " . $followers[$i]["lastName"] . " (" .$followers[$i]["followedUserName"] . ")"  . "</li>";
+                            echo "<li class=\"list-group-item\">" . $followers[$i]["firstName"] . " " . $followers[$i]["lastName"] . " (" .$followers[$i]["followingUserName"] . ")"  . "</li>";
                         }
                         echo "</ul>";
                     }
