@@ -397,10 +397,12 @@ class SiteController {
         }
         if(isset($_POST["Like"])){
             $addLike = $this->db->query("insert into Likes (imdbId, likingUserName, reviewingUserName) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Like"]);
+            header("Location: ?command=leaveReview");
         }
         if(isset($_POST["Dislike"])){
             $addDislike = $this->db->query("insert into Dislikes (imdbId, dislikingUserName, reviewingUserName) values (?, ?, ?);", "sss", $_COOKIE["currentMovie"], $_SESSION["username"], $_POST["Dislike"]);
-        }
+            header("Location: ?command=leaveReview");
+        }   
         if(isset($_COOKIE["currentMovie"])){
             $checkReviewExists = $this->db->query("select * from Reviews where imdbId = '" . $_COOKIE["currentMovie"] . "' and userName = '".  $_SESSION["username"] . "'");
             if(!empty($checkReviewExists)){
