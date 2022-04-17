@@ -22,7 +22,13 @@
 
     <main>
         <div class="row bcr-name">
-            <h1>Home</h1>
+            <?php
+                echo "<h2>Welcome, " . $_SESSION["firstName"]."</h2>"
+            ?>
+
+            <h4>Click on the search tab to see a catalog of movies. From there, you can rate and review movies,
+                 as well as add them to your watchlist.
+            </h4>
         </div>
     </main>
 

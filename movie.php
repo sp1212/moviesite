@@ -49,10 +49,6 @@
                     ?>
                 </div>
             </div>
-            <div class="row">
-                <h1>Reviews</h1>
-                <?= $reviews ?>
-            </div>
         </div>
     </main>
 

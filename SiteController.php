@@ -427,8 +427,9 @@ class SiteController {
                     if($update == false){
                         $error_msg = "Error updating movie";
                     }
-                    setcookie("currentMovie", "", time() - 3600, '/');
-                    $this->movie($_COOKIE["currentMovie"]);
+                    //setcookie("currentMovie", "", time() - 3600, '/');
+                    header("Location: ?command=leaveReview");
+                    //$this->movie($_COOKIE["currentMovie"]);
                     return;
                     //header("Location: ?command=search");
                 }
@@ -440,8 +441,9 @@ class SiteController {
                     if($insert == false){
                         $error_msg = "You have already reviewed this movie";
                     }
-                    setcookie("currentMovie", "", time() - 3600, '/');
-                    $this->movie($_COOKIE["currentMovie"]);
+                    //setcookie("currentMovie", "", time() - 3600, '/');
+                    //$this->movie($_COOKIE["currentMovie"]);
+                    header("Location: ?command=leaveReview");
                     return;
                     //header("Location: ?command=search");
                 }
