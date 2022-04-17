@@ -41,7 +41,7 @@
             <div class="col-6 justify-content-center" style="text-align: center">
                 <h4>Followers</h4>
                 <?php
-                    if (empty($followed))
+                    if (empty($followers))
                     {
                         echo "No followers found.";
                     }
@@ -49,9 +49,9 @@
                     {   
                         echo
                         "<ul class=\"list-group\">"; 
-                        for ($i = 0; $i < count($followed); $i++)
+                        for ($i = 0; $i < count($followers); $i++)
                         {
-                            echo "<li class=\"list-group-item\">" . $followed[$i]["firstName"] . " " . $followed[$i]["lastName"] . " (" .$followed[$i]["followedUserName"] . ")"  . "</li>";
+                            echo "<li class=\"list-group-item\">" . $followers[$i]["firstName"] . " " . $followers[$i]["lastName"] . " (" .$followers[$i]["followedUserName"] . ")"  . "</li>";
                         }
                         echo "</ul>";
                     }
